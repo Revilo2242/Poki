@@ -7,26 +7,16 @@
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      overflow: hidden;
-      position: relative;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
     }
-
     h1 {
       margin-top: 20px;
       color: #333;
-      font-size: 36px;
-      text-align: center;
-      font-weight: 600;
     }
-
     .menu {
       margin: 20px;
       display: flex;
@@ -34,28 +24,18 @@
       gap: 15px;
       justify-content: center;
     }
-
     button {
-      padding: 12px 25px;
+      padding: 10px 20px;
       background-color: #0078d7;
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
-      transition: background-color 0.3s, transform 0.2s;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
     button:hover {
       background-color: #005a9e;
-      transform: translateY(-2px);
     }
-
-    button:active {
-      transform: translateY(1px);
-    }
-
     .iframe-container {
       width: 90%;
       height: 70vh;
@@ -66,15 +46,12 @@
       border: 2px solid #ccc;
       background-color: #ffffff;
       position: relative;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
     iframe {
       border: none;
       width: 100%;
       height: 100%;
     }
-
     .loading-screen {
       position: absolute;
       top: 0;
@@ -87,11 +64,9 @@
       align-items: center;
       visibility: hidden;
     }
-
     .loading-screen.active {
       visibility: visible;
     }
-
     .spinner {
       border: 4px solid #f3f3f3;
       border-top: 4px solid #0078d7;
@@ -100,33 +75,93 @@
       height: 40px;
       animation: spin 2s linear infinite;
     }
-
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-
     .fullscreen-btn {
       position: absolute;
-      top: -40px;
+      top: 10px;
       right: 10px;
-      background-color: transparent;
-      color: #0078d7;
-      font-size: 24px;
-      border: none;
-      cursor: pointer;
+      background-color: #0078d7;
       padding: 10px;
-      transition: color 0.3s;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-
     .fullscreen-btn:hover {
-      color: #005a9e;
+      background-color: #005a9e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Game Hub</h1>
+  <div class="menu">
+    <button onclick="loadGame('https://itch.io/embed-upload/12037647?color=000000')">Twilight Zone</button>
+    <button onclick="loadGame('https://drivemad.me/')">Drive Mad</button>
+    <button onclick="loadGame('https://stickman.pro/')">Stickman Hook</button>
+    <button onclick="loadGame('https://vocalnutria9174.itch.io/retro-bowl')">Retro Bowl</button>
+    <button onclick="loadGame('https://stickman.pro/')">Game 5</button>
+    <button onclick="loadGame('https://stickman.pro/')">Game 6</button>
+    <button onclick="loadGame('https://stickman.pro/')">Game 7</button>
+    <button onclick="loadGame('https://stickman.pro/')">Game 8</button>
+    <button onclick="loadGame('https://stickman.pro/')">Game 9</button>
+    <button onclick="loadGame('https://stickman.pro/')">Game 10</button>
+  </div>
+
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+
+  <div class="iframe-container">
+    <div id="loading-screen" class="loading-screen">
+      <div class="spinner"></div>
+    </div>
+    <iframe id="game-frame" src="" onload="onGameLoaded()" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    // Function to load a new game
+    function loadGame(url) {
+      const iframe = document.getElementById('game-frame');
+      const loadingScreen = document.getElementById('loading-screen');
+      loadingScreen.classList.add('active'); // Show loading screen
+      iframe.src = url; // Set iframe source to load new game
     }
 
-    .background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
- 
+    // Function to toggle fullscreen mode
+    function toggleFullscreen() {
+      const iframe = document.getElementById('game-frame');
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        // If fullscreen is active, exit fullscreen
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      } else {
+        // If not in fullscreen, request fullscreen
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+          iframe.mozRequestFullScreen();
+        } else if (iframe.msRequestFullscreen) {
+          iframe.msRequestFullscreen();
+        }
+      }
+    }
+
+    // Function to hide loading screen once the game is loaded
+    function onGameLoaded() {
+      const loadingScreen = document.getElementById('loading-screen');
+      loadingScreen.classList.remove('active'); // Hide loading screen
+    }
+  </script>
+</body>
+</html>
