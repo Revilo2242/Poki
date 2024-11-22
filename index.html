@@ -101,8 +101,8 @@
     <button onclick="loadGame('https://itch.io/embed-upload/12037647?color=000000')">Twilight Zone</button>
     <button onclick="loadGame('https://drivemad.me/')">Drive Mad</button>
     <button onclick="loadGame('https://stickman.pro/')">Stickman Hook</button>
-    <button onclick="loadGame('https://retrobowlgame.io/')">Retro Bowl</button>
-    <button onclick="loadGame('https://poki.com/en/g/retro-bowl')">Game 5</button>
+    <button onclick="loadGame('https://retrobowl25.com/')">Retro Bowl</button>
+    <button onclick="loadGame('https://www.crazygames.com/game/basketball-stars-2019')">Game 5</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 6</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 7</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 8</button>
@@ -132,10 +132,28 @@
     // Function to toggle fullscreen mode
     function toggleFullscreen() {
       const iframe = document.getElementById('game-frame');
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+        // If fullscreen is active, exit fullscreen
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
       } else {
-        iframe.requestFullscreen();
+        // If not in fullscreen, request fullscreen
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+          iframe.mozRequestFullScreen();
+        } else if (iframe.msRequestFullscreen) {
+          iframe.msRequestFullscreen();
+        }
       }
     }
 
