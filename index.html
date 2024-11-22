@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirect to Poki</title>
+  <title>Poki Proxy Embed</title>
   <style>
     body {
       margin: 0;
@@ -13,20 +13,17 @@
       height: 100vh;
       background-color: #f0f0f0;
     }
-    a {
-      text-decoration: none;
-      color: white;
-      background-color: #0078d7;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 18px;
-    }
-    a:hover {
-      background-color: #005a9e;
+    iframe {
+      border: none;
+      width: 90%;
+      height: 90%;
     }
   </style>
 </head>
 <body>
-  <a href="https://poki.com" target="_blank">Play Games on Poki</a>
+  <iframe 
+    src="https://cors-anywhere.herokuapp.com/https://poki.com" 
+    allowfullscreen>
+  </iframe>
 </body>
 </html>
