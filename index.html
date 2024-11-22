@@ -20,7 +20,9 @@
     .menu {
       margin: 20px;
       display: flex;
+      flex-wrap: wrap;
       gap: 15px;
+      justify-content: center;
     }
     button {
       padding: 10px 20px;
@@ -42,38 +44,105 @@
       justify-content: center;
       align-items: center;
       border: 2px solid #ccc;
-      background-color: #ff
+      background-color: #ffffff;
+      position: relative;
     }
     iframe {
       border: none;
       width: 100%;
       height: 100%;
     }
+    .loading-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+    }
+    .loading-screen.active {
+      visibility: visible;
+    }
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #0078d7;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .fullscreen-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #0078d7;
+      padding: 10px;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .fullscreen-btn:hover {
+      background-color: #005a9e;
+    }
   </style>
 </head>
 <body>
   <h1>Game Hub</h1>
   <div class="menu">
-    <button onclick="loadGame('https://itch.io/embed-upload/12037647?color=000000')">twilight zone</button>
-    <button onclick="loadGame('https://drivemad.me/')">drive mad</button>
-    <button onclick="loadGame('https://stickman.pro/')">stickman hook</button>
-    <button onclick="loadGame('https://retrobowlgame.io/')">retro bowl</button>
+    <button onclick="loadGame('https://itch.io/embed-upload/12037647?color=000000')">Twilight Zone</button>
+    <button onclick="loadGame('https://drivemad.me/')">Drive Mad</button>
+    <button onclick="loadGame('https://stickman.pro/')">Stickman Hook</button>
+    <button onclick="loadGame('https://retrobowlgame.io/')">Retro Bowl</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 5</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 6</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 7</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 8</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 9</button>
     <button onclick="loadGame('https://stickman.pro/')">Game 10</button>
-    
   </div>
+
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" onclick="toggleFullscreen()">Fullscreen</button>
+
   <div class="iframe-container">
-    <iframe id="game-frame" src="" allowfullscreen></iframe>
+    <div id="loading-screen" class="loading-screen">
+      <div class="spinner"></div>
+    </div>
+    <iframe id="game-frame" src="" onload="onGameLoaded()" allowfullscreen></iframe>
   </div>
 
   <script>
+    // Function to load a new game
     function loadGame(url) {
       const iframe = document.getElementById('game-frame');
-      iframe.src = url;
+      const loadingScreen = document.getElementById('loading-screen');
+      loadingScreen.classList.add('active'); // Show loading screen
+      iframe.src = url; // Set iframe source to load new game
+    }
+
+    // Function to toggle fullscreen mode
+    function toggleFullscreen() {
+      const iframe = document.getElementById('game-frame');
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        iframe.requestFullscreen();
+      }
+    }
+
+    // Function to hide loading screen once the game is loaded
+    function onGameLoaded() {
+      const loadingScreen = document.getElementById('loading-screen');
+      loadingScreen.classList.remove('active'); // Hide loading screen
     }
   </script>
 </body>
