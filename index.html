@@ -3,27 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Embed Itch.io Game</title>
+  <title>Game Hub</title>
   <style>
     body {
       margin: 0;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      margin-top: 20px;
+      color: #333;
+    }
+    .menu {
+      margin: 20px;
+      display: flex;
+      gap: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #005a9e;
+    }
+    .iframe-container {
+      width: 90%;
+      height: 70vh;
+      margin: 20px;
+      display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #f0f0f0;
+      border: 2px solid #ccc;
+      background-color: #fff;
     }
     iframe {
       border: none;
-      width: 90%;
-      height: 90%;
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-  <iframe 
-    src="https://itch.io/embed-upload/12037647?color=000000" 
-    allowfullscreen>
-  </iframe>
+  <h1>Game Hub</h1>
+  <div class="menu">
+    <button onclick="loadGame('https://itch.io/embed-upload/12037647?color=000000')">Game 1</button>
+    <button onclick="loadGame('https://itch.io/embed-upload/654321')">Game 2</button>
+    <button onclick="loadGame('https://itch.io/embed-upload/789012')">Game 3</button>
+  </div>
+  <div class="iframe-container">
+    <iframe id="game-frame" src="" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    function loadGame(url) {
+      const iframe = document.getElementById('game-frame');
+      iframe.src = url;
+    }
+  </script>
 </body>
 </html>
